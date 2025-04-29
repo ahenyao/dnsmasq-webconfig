@@ -1,0 +1,142 @@
+:root{
+    --background: #D4D4D4;
+    --button: #33C3F0;
+    --button-hover: #1EAEDB;
+    --a: var(--button-hover);
+    --a-hover: #0FA0CE;
+    --notwhite1: #C1C1C1;
+    --notwhite2: #B1B1B1;
+    --notwhite3: #A1A1A1;
+    --text: #222;
+    --button2: #555;
+    --button2-border: #bbb;
+    --button2-hover: #333;
+    --button2-hover-border: #888;
+}
+
+.darkTheme{
+    --background: #2B2B2B;
+    /*--button: #33C3F0;
+    --button-hover: #1EAEDB;
+    --a: var(--button-hover);
+    --a-hover: #0FA0CE;*/
+    --notwhite1: #3E3E3E;
+    --notwhite2: #4E4E4E;
+    --notwhite3: #5E5E5E;
+    --text: #DDD;
+    --button2: #AAA;
+    --button2-border: #444;
+    --button2-hover: #CCC;
+    --button2-hover-border: #777;
+}
+
+
+/* Base Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+body {
+    background-color: var(--background);
+    color: var(--text); }
+
+/* Links
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+a {
+    color: var(--a); }
+a:hover {
+    color: var(--a-hover); }
+
+
+/* Buttons
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    color: var(--button2);
+    border-color: var(--button2-border); }
+
+
+.button:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:focus,
+button:focus,
+input[type="submit"]:focus,
+input[type="reset"]:focus,
+input[type="button"]:focus {
+    color: var(--button2-hover);
+    border-color: var(--button2-hover-border); }
+
+
+.button.button-primary,
+button.button-primary,
+input[type="submit"].button-primary,
+input[type="reset"].button-primary,
+input[type="button"].button-primary {
+    color: var(--background);
+    background-color: var(--button);
+    border-color: var(--button); }
+
+
+
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+    color: var(--background);
+    background-color: var(--button-hover);
+    border-color: var(--button-hover); }
+
+
+/* Forms
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+    background-color: var(--background);
+    border-color: var(--notwhite3); }
+
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--button); }
+
+/* Code
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+code {
+    background: var(--notwhite1);
+    border-color: var(--notwhite2); }
+
+/* Tables
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+th,
+td {
+    border-bottom-color: var(--notwhite2); }
+
+
+
+/* Misc
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+hr {
+    border-top-color: var(--notwhite2); }
+
