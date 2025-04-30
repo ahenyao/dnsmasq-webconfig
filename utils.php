@@ -36,27 +36,36 @@ class UI{
         echo '<td>'.$name.'</td>';
         echo '<td>'.$value.'</td>';
         echo '<td>
-                <button class="button-primary"></button>
-                <button class="button-primary"></button>
+                <button style="width: inherit;" class="button-primary">Edit </button>
+                <button style="width: inherit;" class="button-primary">Delete </button>
         </td>';
         echo '<tr>';
     }
 }
 
 class utils{
-    static function CheckIP($ip){
+    public static function CheckIP($ip) {
+        //$ip = "c9eb:4b45:f5ff:ebd9:3736:8aef:60d4:f643";
         $probIPtype = null;
         $test = array();
-        if(count(explode('.', $ip))==4) $probIPtype=4;
-        if(count(explode(':', $ip))==8) $probIPtype=6;
-        if($probIPtype==4) {
-            foreach(explode('.', $ip) as $v) {
-                if($v >= 0 && $v <= 255) array_push($test, "ok");
+        if (count(explode('.', $ip)) == 4) $probIPtype = 4;
+        if (count(explode(':', $ip)) == 8) $probIPtype = 6;
+        if ($probIPtype == 4) {
+            foreach (explode('.', $ip) as $v) {
+                if ($v >= 0 && $v <= 255) array_push($test, "ok");
             }
         }
-        if($probIPtype==null) return 0;
-        if($probIPtype==4 && count($test)==4) return 4;
-
+        if ($probIPtype == 6) {
+            foreach (explode(':', $ip) as $v) {
+                if (strlen($v) > 4) {
+                    break;
+                }
+                if (preg_replace("/[0-9a-fA-F]/", "", $v) == "") array_push($test, "ok");
+            }
+        }
+        if ($probIPtype == null) return "-1";
+        if ($probIPtype == 4 && count($test) == 4) return "4";
+        if ($probIPtype == 6 && count($test) == 8) return "6";
+        return -1;
     }
-
 }
