@@ -19,3 +19,9 @@ table{
     white-space: nowrap;
     display: inline-block;
 }
+
+th,td{text-align: center;}
+
+.dns-record.deletion{
+    background-color: #ff000040;
+}

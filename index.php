@@ -37,43 +37,13 @@
         </div>
 
         <div class="row">
+            <button style="float:right; font-size: 2rem" class="button-primary" onclick="genConf('A');genConf('AAAA');genConf('CNAME');genConf('MX');genConf('TXT');genConf('SRV');">Save changes</button>
+            <table class="u-full-width">
             <?php UI::TableHeading(); ?>
-            <?php
-                $file = explode(PHP_EOL, file_get_contents('../dnsmasq.conf'));
-                foreach ($file as $line) {
-                    $line = trim($line);
+            <?php foreach (getAllConfigFiles() as $confFile) UI::ScanFile($confFile); ?>
+            <?php UI::TableHeading(); ?>
+            </table>
 
-                    if(substr($line, 0, 9) == 'address=/') {
-                        $entry = explode("/", $line);
-                        $ipType = utils::CheckIP($entry[2]);
-                        if($ipType == -1) $type="X";
-                        if($ipType == 4) $type="A";
-                        if($ipType == 6) $type="AAAA";
-                        UI::TableRow($type, $entry[1], $entry[2]);
-                    }
-
-                    if(substr($line, 0, 6) == 'cname=') {
-                        $entry = explode(",", substr($line, 6));
-                        UI::TableRow("CNAME", $entry[0], $entry[1]);
-                    }
-                    if(substr($line, 0, 8) == 'mx-host=') {
-                        $entry = explode(",", substr($line, 8));
-                        UI::TableRow("MX", $entry[0], $entry[1]."&emsp;[".$entry[2]."]");
-                    }
-                    if(substr($line, 0, 11) == 'txt-record=') {
-                        $entry = explode(",", substr($line, 11));
-                        $record = substr(join(",", $entry), strlen($entry[0])+1);
-                        $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
-                        UI::TableRow("TXT", $entry[0], $record);
-                    }
-                    if(substr($line, 0, 9) == 'srv-host=') {
-                        $entry = explode(",", substr($line, 9));
-                        $record = join("&emsp;", $entry);
-                        $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
-                        UI::TableRow("SRV", $entry[0], $record);
-                    }
-                }
-            ?>
         </div>
 
 

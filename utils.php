@@ -12,34 +12,63 @@ function getAllConfigFiles() {
 }
 
 class UI{
+    static $counter=1;
     static function TableHeading(){
-        /*echo '<table>';
-        echo '<thead>';
-        echo '<tr>';
-        echo '<th>Type</th>';
-        echo '<th>Name</th>';
-        echo '<th>Value</th>';
-        echo '</tr>';
-        echo '</thead>';*/
         echo '
-        <table class="u-full-width">
-            <thead>
-                <tr>
-                    <th>Type</th> <th>Name</th> <th>Value</th> <th>&nbsp;</th>
-                </tr>
-            </thead>
+            <tr>
+                <th>Type</th> <th>Name</th> <th>Value</th> <th>&nbsp;</th>
+            </tr>
         ';
     }
     static function TableRow($type, $name, $value){
-        echo '<tr>';
-        echo '<td>'.$type.'</td>';
-        echo '<td>'.$name.'</td>';
-        echo '<td>'.$value.'</td>';
-        echo '<td>
-                <button style="width: inherit;" class="button-primary">Edit </button>
-                <button style="width: inherit;" class="button-primary">Delete </button>
+        $id = 'dns-record'.self::$counter;
+        echo '<tr class="dns-record" id="dns-record'.self::$counter.'">';
+        echo '<td id="'.$id.'A">'.$type.'</td>';
+        echo '<td id="'.$id.'B">'.$name.'</td>';
+        echo '<td id="'.$id.'C">'.$value.'</td>';
+        echo '<td id="'.$id.'D">
+                <button style="width: 1em; font-size: 2rem" class="button-primary">A</button>
+                <button style="width: 1em; font-size: 2rem" class="button-primary" onclick="toggleDelete(\'' . $id . '\')">A</button>
         </td>';
         echo '<tr>';
+        self::$counter++;
+    }
+
+    static function ScanFile($fileName){
+        $file = explode(PHP_EOL, file_get_contents($fileName));
+        foreach ($file as $line) {
+            $line = trim($line);
+
+            if(substr($line, 0, 9) == 'address=/') {
+                $entry = explode("/", $line);
+                $ipType = utils::CheckIP($entry[2]);
+                if($ipType == -1) $type="X";
+                if($ipType == 4) $type="A";
+                if($ipType == 6) $type="AAAA";
+                UI::TableRow($type, $entry[1], $entry[2]);
+            }
+
+            if(substr($line, 0, 6) == 'cname=') {
+                $entry = explode(",", substr($line, 6));
+                UI::TableRow("CNAME", $entry[0], $entry[1]);
+            }
+            if(substr($line, 0, 8) == 'mx-host=') {
+                $entry = explode(",", substr($line, 8));
+                UI::TableRow("MX", $entry[0], $entry[1]."&emsp;".$entry[2]);
+            }
+            if(substr($line, 0, 11) == 'txt-record=') {
+                $entry = explode(",", substr($line, 11));
+                $record = substr(join(",", $entry), strlen($entry[0])+1);
+                $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
+                UI::TableRow("TXT", $entry[0], $record);
+            }
+            if(substr($line, 0, 9) == 'srv-host=') {
+                $entry = explode(",", substr($line, 9));
+                $record = substr(join("&emsp;", $entry), strlen($entry[0]));
+                $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
+                UI::TableRow("SRV", $entry[0], $record);
+            }
+        }
     }
 }
 
