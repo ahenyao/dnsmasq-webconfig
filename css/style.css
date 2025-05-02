@@ -20,8 +20,36 @@ table{
     display: inline-block;
 }
 
-th,td{text-align: center;}
+th,td{text-align: center; overflow-x: hidden; padding: 0}
 
 .dns-record.deletion{
     background-color: #ff000040;
+}
+
+.button-primary.deleteButton{
+    --button: #F03333;
+    --button-hover: #DB1E1E;
+}
+
+@media (max-width: 959px) {
+    table tr {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 3em;
+    }
+
+    table td {
+        display: block;
+        width: 100%;
+        padding: 0.5em 0;
+        box-sizing: border-box;
+    }
+}
+
+dialog {
+    background-color: var(--background);
+    color: var(--text); }
+
+dialog::backdrop{
+    background-color: #0000007f;
 }

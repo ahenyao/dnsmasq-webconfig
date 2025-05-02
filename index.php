@@ -1,5 +1,4 @@
 <?php $title=""; require('header.php'); ?>
-<h1><?= $title; ?></h1>
 
 <button class="button-primary theme-switch" id="themeSwitcher"></button>
 
@@ -10,13 +9,17 @@
                 <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
             </div>
             <div class="twelve column">
-                <h5>A      address=/yourdomain.com/192.0.2.1</h5>
-                <h5>AAAA   address=/yourdomain.com/2001:db8::1</h5>
-                <h5>CNAME  cname=alias.yourdomain.com,target.yourdomain.com</h5>
-                <h5>MX     mx-host=yourdomain.com,mail.yourdomain.com,10</h5>
-                <h5>TXT    txt-record=yourdomain.com,"v=spf1 include:_spf.google.com ~all"</h5>
-                <h5>SRV    srv-host=_sip._tcp.yourdomain.com,sipserver.yourdomain.com,5060,10,60</h5>
-                <h6>sudo -u http sh -c "touch /etc/dnsmasq.webconf/{a,aaaa,cname,mx,txt,srv,extra}.conf"</h6>
+                <pre>
+                    <code>
+                A      address=/yourdomain.com/192.0.2.1
+                AAAA   address=/yourdomain.com/2001:db8::1
+                CNAME  cname=alias.yourdomain.com,target.yourdomain.com
+                MX     mx-host=yourdomain.com,mail.yourdomain.com,10
+                TXT    txt-record=yourdomain.com,"v=spf1 include:_spf.google.com ~all"
+                SRV    srv-host=_sip._tcp.yourdomain.com,sipserver.yourdomain.com,5060,10,60
+                sudo -u http sh -c "touch /etc/dnsmasq.webconf/{a,aaaa,cname,mx,txt,srv,extra}.conf"
+                    </code>
+                </pre>
             </div>
         </div>
         <div class="row">
@@ -37,8 +40,8 @@
         </div>
 
         <div class="row">
-            <button style="float:right; font-size: 2rem" class="button-primary" onclick="genConf('A');genConf('AAAA');genConf('CNAME');genConf('MX');genConf('TXT');genConf('SRV');">Save changes</button>
-            <table class="u-full-width">
+            <button style="font-size: 2rem" class="button-primary u-pull-right" onclick="saveConfig();">Save changes</button>
+            <table style="table-layout:fixed;" class="u-full-width">
             <?php UI::TableHeading(); ?>
             <?php foreach (getAllConfigFiles() as $confFile) UI::ScanFile($confFile); ?>
             <?php UI::TableHeading(); ?>
@@ -48,5 +51,20 @@
 
 
     </div>
-
+<dialog id="editor">
+    <h3>Editing DNS record</h3>
+    <form method="dialog">
+        <select name="record" id="record">
+            <option value="A">A</option>
+            <option value="AAAA">AAAA</option>
+            <option value="CNAME">CNAME</option>
+            <option value="MX">MX</option>
+            <option value="TXT">TXT</option>
+            <option value="SRV">SRV</option>
+        </select>
+        <script>
+            document.getElementById("record").addEventListener("change", () => { alert('ok'); });
+        </script>
+    </form>
+</dialog>
 <?php require('footer.php'); ?>

@@ -16,7 +16,7 @@ class UI{
     static function TableHeading(){
         echo '
             <tr>
-                <th>Type</th> <th>Name</th> <th>Value</th> <th>&nbsp;</th>
+                <th style="width: 5em">Type</th> <th>Name</th> <th>Value</th> <th style="width: min-content">&nbsp;</th>
             </tr>
         ';
     }
@@ -27,8 +27,8 @@ class UI{
         echo '<td id="'.$id.'B">'.$name.'</td>';
         echo '<td id="'.$id.'C">'.$value.'</td>';
         echo '<td id="'.$id.'D">
-                <button style="width: 1em; font-size: 2rem" class="button-primary">A</button>
-                <button style="width: 1em; font-size: 2rem" class="button-primary" onclick="toggleDelete(\'' . $id . '\')">A</button>
+                <button style="width: 0; padding:0 1em; font-size: 2rem" class="button-primary">A</button>
+                <button style="width: 0; padding:0 1em; font-size: 2rem" class="button-primary deleteButton" onclick="toggleDelete(\'' . $id . '\')">A</button>
         </td>';
         echo '<tr>';
         self::$counter++;
