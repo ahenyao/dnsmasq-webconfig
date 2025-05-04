@@ -5,21 +5,8 @@
     <div class="container">
         <div class="row">
             <div class="one-half column" style="margin-top: 25%">
-                <h4>Basic Page</h4>
+                <h4><?= $title; ?></h4>
                 <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
-            </div>
-            <div class="twelve column">
-                <pre>
-                    <code>
-                A      address=/yourdomain.com/192.0.2.1
-                AAAA   address=/yourdomain.com/2001:db8::1
-                CNAME  cname=alias.yourdomain.com,target.yourdomain.com
-                MX     mx-host=yourdomain.com,mail.yourdomain.com,10
-                TXT    txt-record=yourdomain.com,"v=spf1 include:_spf.google.com ~all"
-                SRV    srv-host=_sip._tcp.yourdomain.com,sipserver.yourdomain.com,5060,10,60
-                sudo -u http sh -c "touch /etc/dnsmasq.webconf/{a,aaaa,cname,mx,txt,srv,extra}.conf"
-                    </code>
-                </pre>
             </div>
         </div>
         <div class="row">
@@ -53,7 +40,8 @@
     </div>
 <dialog id="editor">
     <h3>Editing DNS record</h3>
-    <form method="dialog">
+    <form method="dialog" id="editForm">
+        <label for="record">DNS record type</label>
         <select name="record" id="record">
             <option value="A">A</option>
             <option value="AAAA">AAAA</option>
@@ -62,9 +50,9 @@
             <option value="TXT">TXT</option>
             <option value="SRV">SRV</option>
         </select>
-        <script>
-            document.getElementById("record").addEventListener("change", () => { alert('ok'); });
-        </script>
+        <div id="editForm-args"></div>
     </form>
+    <button class="button-primary" id="closeEditor">Close</button>
+    <button class="button-primary" id="applyEditor">Apply</button>
 </dialog>
 <?php require('footer.php'); ?>

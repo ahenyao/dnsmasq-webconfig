@@ -31,6 +31,7 @@
 –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <script src="js/theme.js" defer="defer"></script>
     <script src="js/dnsRecords.js" defer="defer"></script>
+    <script src="js/editor.js" defer="defer"></script>
 
     <!-- Favicon
     –––––––––––––––––––––––––––––––––––––––––––––––––– -->

@@ -15,7 +15,7 @@ class UI{
     static $counter=1;
     static function TableHeading(){
         echo '
-            <tr>
+            <tr id="table-header">
                 <th style="width: 5em">Type</th> <th>Name</th> <th>Value</th> <th style="width: min-content">&nbsp;</th>
             </tr>
         ';
@@ -27,8 +27,8 @@ class UI{
         echo '<td id="'.$id.'B">'.$name.'</td>';
         echo '<td id="'.$id.'C">'.$value.'</td>';
         echo '<td id="'.$id.'D">
-                <button style="width: 0; padding:0 1em; font-size: 2rem" class="button-primary">A</button>
-                <button style="width: 0; padding:0 1em; font-size: 2rem" class="button-primary deleteButton" onclick="toggleDelete(\'' . $id . '\')">A</button>
+                <button id="'.$id.'edit" style="width: 0; padding:0 1em; font-size: 2rem" class="button-primary" onclick="openEditor(this)">A</button>
+                <button id="'.$id.'delete" style="width: 0; padding:0 1em; font-size: 2rem" class="button-primary deleteButton" onclick="toggleDelete(\'' . $id . '\')">A</button>
         </td>';
         echo '<tr>';
         self::$counter++;
@@ -64,7 +64,7 @@ class UI{
             }
             if(substr($line, 0, 9) == 'srv-host=') {
                 $entry = explode(",", substr($line, 9));
-                $record = substr(join("&emsp;", $entry), strlen($entry[0]));
+                $record = substr(join("&emsp;", $entry), strlen($entry[0])+6);
                 $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
                 UI::TableRow("SRV", $entry[0], $record);
             }
