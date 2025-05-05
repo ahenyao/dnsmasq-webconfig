@@ -1,11 +1,39 @@
-.theme-switch{
+.fab {
     border-radius: 100%;
     width: 5em;
     height: 5em;
     padding: 0;
+    left: 0em;
+    top: 0em;
+    position: fixed;
+    font-family: "Material Symbols Outlined";
+}
+.fab.theme-switch {
     right: 2em;
+    left: unset;
     top: 2em;
+    bottom: unset;
+}
+.fab.addNewEntry {
+    right: 2em;
+    left: unset;
+    top: unset;
+    bottom: 2em;
+}
+
+.icon{
+    font-family: 'Material Symbols Outlined';
+    display: inline-block;
+    font-size: 1em;
+    text-align: center;
+}
+
+.fab .icon{
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3em;
 }
 
 table{
@@ -72,4 +100,18 @@ dialog {
 
 dialog::backdrop{
     background-color: #0000007f;
+}
+
+@font-face {
+    font-family: 'Material Symbols Outlined';
+    src: url('../fonts/MaterialSymbolsOutlined_48pt-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Raleway';
+    src: url('../fonts/Raleway-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
 }

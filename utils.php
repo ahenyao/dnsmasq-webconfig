@@ -15,20 +15,20 @@ class UI{
     static $counter=1;
     static function TableHeading(){
         echo '
-            <tr id="table-header">
+            <tbody><tr id="table-header">
                 <th style="width: 5em">Type</th> <th>Name</th> <th>Value</th> <th style="width: min-content">&nbsp;</th>
-            </tr>
+            </tr></tbody>
         ';
     }
     static function TableRow($type, $name, $value){
         $id = 'dns-record'.self::$counter;
-        echo '<tr class="dns-record" id="dns-record'.self::$counter.'">';
+        echo '<tr class="dns-record" id="'.$id.'">';
         echo '<td id="'.$id.'A">'.$type.'</td>';
         echo '<td id="'.$id.'B">'.$name.'</td>';
         echo '<td id="'.$id.'C">'.$value.'</td>';
         echo '<td id="'.$id.'D">
-                <button id="'.$id.'edit" style="width: 0; padding:0 1em; font-size: 2rem" class="button-primary" onclick="openEditor(this)">A</button>
-                <button id="'.$id.'delete" style="width: 0; padding:0 1em; font-size: 2rem" class="button-primary deleteButton" onclick="toggleDelete(\'' . $id . '\')">A</button>
+                <button id="'.$id.'edit" style="width: min-content; padding:0 0.6em; font-size: 2rem" class="button-primary" onclick="openEditor(this)"><span class="icon">edit</span></button>
+                <button id="'.$id.'delete" style="width: min-content; padding:0 0.6em; font-size: 2rem" class="button-primary deleteButton" onclick="toggleDelete(\'' . $id . '\')"><span class="icon">delete</span></button>
         </td>';
         echo '<tr>';
         self::$counter++;
@@ -45,28 +45,38 @@ class UI{
                 if($ipType == -1) $type="X";
                 if($ipType == 4) $type="A";
                 if($ipType == 6) $type="AAAA";
-                UI::TableRow($type, $entry[1], $entry[2]);
+                $record = '<span class="tableRecord" title='.$entry[2].'>'.$entry[2].'</span>';
+                $name = '<span class="tableRecord" title='.$entry[1].'>'.$entry[1].'</span>';
+                UI::TableRow($type, $name, $record);
             }
 
             if(substr($line, 0, 6) == 'cname=') {
                 $entry = explode(",", substr($line, 6));
-                UI::TableRow("CNAME", $entry[0], $entry[1]);
+                $record = $entry[1];
+                $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
+                $name = '<span class="tableRecord" title='.$entry[0].'>'.$entry[0].'</span>';
+                UI::TableRow("CNAME", $name, $record);
             }
             if(substr($line, 0, 8) == 'mx-host=') {
                 $entry = explode(",", substr($line, 8));
-                UI::TableRow("MX", $entry[0], $entry[1]."&emsp;".$entry[2]);
+                $record = $entry[1]."&emsp;".$entry[2];
+                $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
+                $name = '<span class="tableRecord" title='.$entry[0].'>'.$entry[0].'</span>';
+                UI::TableRow("MX", $name, $record);
             }
             if(substr($line, 0, 11) == 'txt-record=') {
                 $entry = explode(",", substr($line, 11));
                 $record = substr(join(",", $entry), strlen($entry[0])+1);
                 $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
-                UI::TableRow("TXT", $entry[0], $record);
+                $name = '<span class="tableRecord" title='.$entry[0].'>'.$entry[0].'</span>';
+                UI::TableRow("TXT", $name, $record);
             }
             if(substr($line, 0, 9) == 'srv-host=') {
                 $entry = explode(",", substr($line, 9));
                 $record = substr(join("&emsp;", $entry), strlen($entry[0])+6);
                 $record = '<span class="tableRecord" title='.$record.'>'.$record.'</span>';
-                UI::TableRow("SRV", $entry[0], $record);
+                $name = '<span class="tableRecord" title='.$entry[0].'>'.$entry[0].'</span>';
+                UI::TableRow("SRV", $name, $record);
             }
         }
     }
@@ -74,14 +84,18 @@ class UI{
 
 class utils{
     public static function CheckIP($ip) {
-        //$ip = "c9eb:4b45:f5ff:ebd9:3736:8aef:60d4:f643";
+        $ip = trim($ip);
         $probIPtype = null;
         $test = array();
         if (count(explode('.', $ip)) == 4) $probIPtype = 4;
         if (count(explode(':', $ip)) == 8) $probIPtype = 6;
         if ($probIPtype == 4) {
             foreach (explode('.', $ip) as $v) {
-                if ($v >= 0 && $v <= 255) array_push($test, "ok");
+                if ($v >= 0 && $v <= 255) {
+                    if(preg_replace("/[0-9]/", "", $v) == "") {
+                        array_push($test, "ok");
+                    }
+                }
             }
         }
         if ($probIPtype == 6) {

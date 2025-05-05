@@ -76,12 +76,11 @@ function genConf(meow) {
         result = result.concat(list);
         result.push(`[=== ${record} RECORDS END ===]`);
     });
-    console.log(result);
     var data = JSON.stringify(result);
     document.body.innerHTML+=`<form id="applyChanges" action="applyChanges.php" method="POST">
-    <input type="hidden" value="${data}" name="data">
+    <input type="hidden" value="${btoa(data)}" name="data">
     </form>`;
-    //document.forms["applyChanges"].submit();
+    document.forms["applyChanges"].submit();
 }
 
 function toggleDelete(record){

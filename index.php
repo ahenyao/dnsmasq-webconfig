@@ -1,6 +1,7 @@
 <?php $title=""; require('header.php'); ?>
 
-<button class="button-primary theme-switch" id="themeSwitcher"></button>
+    <button class="button-primary fab theme-switch" id="themeSwitcher"></button>
+    <button class="button-primary fab addNewEntry" id="editorOpener"><span class="icon">add</span></button>
 
     <div class="container">
         <div class="row">
@@ -9,6 +10,8 @@
                 <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="http://www.getskeleton.com">Skeleton documentation</a>.</p>
             </div>
         </div>
+    </div>
+    <div class="container">
         <div class="row">
             <details>
                 <summary>Show all config files</summary>
@@ -25,19 +28,21 @@
             </div>
             </details>
         </div>
+    </div>
 
+    <div class="container">
         <div class="row">
-            <button style="font-size: 2rem" class="button-primary u-pull-right" onclick="saveConfig();">Save changes</button>
-            <table style="table-layout:fixed;" class="u-full-width">
+            <button style="font-size: 2rem" class="button-primary u-pull-right" onclick="saveConfig();"><span class="icon">save</span></button>
+            <table id="dns" style="table-layout:fixed;" class="u-full-width">
             <?php UI::TableHeading(); ?>
+            <tbody id="dns-tbody">
             <?php foreach (getAllConfigFiles() as $confFile) UI::ScanFile($confFile); ?>
+            </tbody>
             <?php UI::TableHeading(); ?>
             </table>
-
         </div>
-
-
     </div>
+
 <dialog id="editor">
     <h3>Editing DNS record</h3>
     <form method="dialog" id="editForm">
