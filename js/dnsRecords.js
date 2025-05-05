@@ -36,7 +36,7 @@ function genConf(meow) {
                         break;
                     case 'CNAME':
                         if (type.textContent === 'CNAME') {
-                            content = `CNAME=${name.innerText},${value.innerText}`;
+                            content = `cname=${name.innerText},${value.innerText}`;
                             CNAME.push(content);
                         }
                         break;
@@ -54,7 +54,7 @@ function genConf(meow) {
                         break;
                     case 'SRV':
                         if (type.textContent === 'SRV') {
-                            content = `srv-host=${name.innerText}${value.innerText.replaceAll(" ", ",")}`;
+                            content = `srv-host=${name.innerText},${value.innerText.replaceAll(" ", ",")}`;
                             SRV.push(content);
                         }
                         break;
