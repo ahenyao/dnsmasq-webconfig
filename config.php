@@ -4,6 +4,6 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 ?>
 
-<?php chdir('/etc/dnsmasq.webconf'); ?>
+<?php chdir('/etc/dnsmasq.webconfig'); ?>
 
 <?php require_once 'utils.php'; ?>

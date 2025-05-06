@@ -12,8 +12,7 @@ function disableDarkMode(){
     themeSwitcher.innerHTML='<span class="icon">dark_mode</span>';
 }
 
-if(darkMode==="enabled")  enableDarkMode();
-if(darkMode==="disabled") disableDarkMode();
+if(darkMode==="enabled")  { enableDarkMode(); } else { disableDarkMode(); }
 
 themeSwitcher.addEventListener("click", () =>{
     darkMode !== "enabled" ? enableDarkMode() : disableDarkMode();
