@@ -124,18 +124,17 @@ $ sudo mkdir /etc/dnsmasq.webconfig
 
    c. Allow user to restart dnsmasq (optional, not for OpenWRT)
 
-   I think this isn't proper way to do it because it opens a security hole. (Please open issue if you know better way)
-
-
-   Upon saving, new config is automatically used.
-   So if access to web panel isn't authenticated or restricted 
-   to IPs, anyone could add malicious DNS records. 
-   Thus, someone could add redirects for domain X
-   to its fake equivalent to get your credentials. 
-
-
-   If you 100% trust people to whom you grant IP access, then go ahead. 
-   Otherwise, I suggest running command below every time you save config.
+  > [!CAUTION]
+  > I think this isn't proper way to do it because it opens a security hole. (Please open issue if you know better way)
+  > 
+  > Upon saving, new config is automatically used.
+  > So if access to web panel isn't authenticated or restricted 
+  > to IPs, anyone could add malicious DNS records. 
+  > Thus, someone could add redirects for domain X
+  > to its fake equivalent to get your credentials.
+  > 
+  > If you 100% trust people to whom you grant IP access, then go ahead. 
+  > Otherwise, I suggest running command below every time you save config.
 
    ```bash
    $ sudo systemctl restart dnsmasq
