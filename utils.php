@@ -4,7 +4,7 @@ function getAllConfigFiles() {
     $validFiles = array();
     $confFiles = scandir('.');
     foreach ($confFiles as $confFile) {
-        if(substr($confFile, -4, 5) == 'conf') {
+        if(substr($confFile, -5, 6) == '.conf') {
             array_push($validFiles, $confFile);
         }
     }
@@ -112,3 +112,4 @@ class utils{
         return -1;
     }
 }
+?>

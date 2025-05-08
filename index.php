@@ -36,7 +36,7 @@
             <table id="dns" style="table-layout:fixed;" class="u-full-width">
             <?php UI::TableHeading(); ?>
             <tbody id="dns-tbody">
-            <?php foreach (getAllConfigFiles() as $confFile) UI::ScanFile($confFile); ?>
+            <?php foreach (dnsFileNames as $confFile) UI::ScanFile($confFile); ?>
             </tbody>
             <?php UI::TableHeading(); ?>
             </table>

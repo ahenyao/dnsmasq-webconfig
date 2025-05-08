@@ -228,7 +228,7 @@ function editValues(dns, mode){
         var newID = `dns-record${document.getElementsByClassName("dns-record").length + 1}`;
         var inside = "";
         var entry = "";
-        entry += `<tr class="dns-record" id="${newID}">`;
+        entry += `<tr class="dns-record addition" id="${newID}">`;
         entry += `<td id="${newID}A">${record.value}</td>`;
         entry += `<td id="${newID}B"><span class="tableRecord" title='${domain.value}'>${domain.value}</span></td>`;
 

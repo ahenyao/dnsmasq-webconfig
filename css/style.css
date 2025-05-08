@@ -7,6 +7,7 @@
     top: 0em;
     position: fixed;
     font-family: "Material Symbols Outlined";
+    z-index: 100;
 }
 .fab.theme-switch {
     right: 2em;
@@ -43,12 +44,16 @@ table{
 .tableRecord{
     text-overflow: ellipsis;
     overflow: hidden;
-    width: inherit;
+    width: 100%;
     white-space: nowrap;
     display: inline-block;
 }
 
 th,td{text-align: center; overflow-x: hidden; padding: 0}
+
+.dns-record.addition{
+    background-color: #00ff0040;
+}
 
 .dns-record.deletion{
     background-color: #ff000040;
