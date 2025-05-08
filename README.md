@@ -38,7 +38,7 @@ Package names differ between distros.
 | PHP     	| php-apache<br>php<br>php-fpm 	| libapache2-mod-php<br>php<br>php-fpm 	| php8-cgi   	|
 | dnsmasq 	| dnsmasq                      	| dnsmasq                              	| dnsmasq    	|
 | git     	| git                          	| git                                  	| -          	|
-| unzip   	| -                            	| -                                    	| git        	|
+| unzip   	| -                            	| -                                    	| unzip      	|
 
 You can set up this on OpenWRT with either Apache on Nginx but for simplicity, default uHTTPd will be used.
 
