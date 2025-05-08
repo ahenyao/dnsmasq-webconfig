@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 <?php
 define("dnsFileNames", ["a.conf",  "aaaa.conf",  "cname.conf", "mx.conf",  "srv.conf",  "txt.conf"]);
 define("confFileNames", array_merge(dnsFileNames, ["dhcp.conf", "pxe.conf", "extra.conf"]));
+define("d",false); // d is for debug
 
     if(chdir('/etc/dnsmasq.webconfig')){
         if(!is_dir("backups")) mkdir("backups");

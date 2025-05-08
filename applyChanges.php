@@ -42,25 +42,19 @@ foreach ($data as $line) {
     }
 }
 
-print_r($A);
-echo "<br>";
-print_r($AAAA);
-echo "<br>";
-print_r($CNAME);
-echo "<br>";
-print_r($MX);
-echo "<br>";
-print_r($TXT);
-echo "<br>";
-print_r($SRV);
-echo "<br>";echo "<br>";
-
 $configs = [$A, $AAAA, $CNAME, $MX, $SRV, $TXT];
 
-foreach ($configs as $arr) {
-    foreach ($arr as $line) {
-        echo $line;
+if(d){
+    foreach ($configs as $arr) {
+        print_r($arr);
         echo "<br>";
+    }
+
+    foreach ($configs as $arr) {
+        foreach ($arr as $line) {
+            echo $line;
+            echo "<br>";
+        }
     }
 }
 function backupConfig($maxRetryCount, $array=null){
@@ -75,7 +69,7 @@ function backupConfig($maxRetryCount, $array=null){
 }
 
 if(empty(backupConfig(5))){
-    echo "Backup was successful. Writing config now.";
+    if(d) echo "Backup was successful. Writing config now.";
     for($i=0; $i<count($configs); $i++){
         file_put_contents(dnsFileNames[$i].'.tmp', implode(PHP_EOL, $configs[$i]));
     }
@@ -84,8 +78,27 @@ if(empty(backupConfig(5))){
     }
 }
 
-header("Location: ..");
-exit;
+for($br=0; $br<5;$br++) echo "<br>";
+
+$out = shell_exec('dnsmasq --test 2>&1');
+if(trim($out)=='dnsmasq: syntax check OK.'){
+
+    $osname = shell_exec('cat /etc/os-release | grep -E "^NAME="');
+    $osname = substr($osname, 6);
+    $osname = substr($osname, 0, strlen($osname) - 2);
+    $osname = strtolower($osname);
+
+    if($osname == "openwrt") {
+        echo "<pre>" . shell_exec('/etc/init.d/dnsmasq restart 2>&1') . "</pre>";
+    } else {
+        echo "<pre>" . shell_exec('sudo systemctl restart dnsmasq 2>&1') . "</pre>";
+    }
+    header("Location: ..");
+    exit;
+} else {
+    echo "<pre><code>".$out."</code></pre>";
+    echo "Fix all errors!<br>Dnsmasq won't restart to apply new config!<br>Use browser's back button to go back to editor and then reload";
+}
 
 ?>
 

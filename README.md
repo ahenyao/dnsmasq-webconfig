@@ -66,7 +66,7 @@ $ cd /srv/http
 ```bash
 $ sudo git clone https://github.com/ahenyao/dnsmasq-webconfig.git
 ```
-OpenWRT:
+For OpenWRT
 ```bash
 # wget https://github.com/ahenyao/dnsmasq-webconfig/archive/refs/heads/main.zip -O /srv/http/dnsmasq-webconfig.zip
 # unzip dnsmasq-webconfig.zip
@@ -113,15 +113,38 @@ $ sudo mkdir /etc/dnsmasq.webconfig
    Look for the line with `nginx: worker process`. In this case as both user and group we will use `http`.
 
    b. Change ownership of config directory
-   
-  > [!IMPORTANT]
-  > Replace `user:group` with the actual user and group found in the previous step
+
+> [!IMPORTANT]
+> Replace `user:group` with the actual user and group found in the previous step
 
    ```
    $ sudo chown user:group /etc/dnsmasq.webconfig
    $ sudo chmod 755 /etc/dnsmasq.webconfig
    ```
 
+   c. Allow user to restart dnsmasq (optional)
+
+   I think this isn't proper way to do it because it opens a security hole. (Please open issue if you know better way)
+
+
+   Upon saving, new config is automatically used.
+   So if access to web panel isn't authenticated or restricted 
+   to IPs, anyone could add malicious DNS records. 
+   Thus, someone could add redirects for domain X
+   to its fake equivalent to get your credentials. 
+
+
+   If you 100% trust people to whom you grant IP access, then go ahead. 
+   Otherwise, I suggest running command below every time you save config.
+
+   ```bash
+   $ sudo systemctl restart dnsmasq
+   ```
+
+   Or on OpenWRT
+   ```bash
+   # /etc/init.d/dnsmasq restart
+   ```
 
 5. Configure Dnsmasq
 
