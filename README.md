@@ -9,7 +9,7 @@
 ![Apache](https://img.shields.io/badge/apache-%23D42029.svg?style=for-the-badge&logo=apache&logoColor=white)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
 
-## 📖 About
+# 📖 About
 Dnsmasq WebConfig is a simple web-based tool that makes it
 easy to configure your dnsmasq server without manually editing config files.
 With simple and intuitive interface, you can easily create and manage:
@@ -17,11 +17,11 @@ With simple and intuitive interface, you can easily create and manage:
 * DHCP settings
 * PXE boot configurations
 
-## ✨ Features
+# ✨ Features
 - Mobile-friendly and responsive web interface
 - Both light and dark theme
 
-## 📦 Requirements
+# 📦 Requirements
 
 * A web server (e.g. Apache, Nginx) configured to run PHP
 * PHP
@@ -43,7 +43,7 @@ Package names differ between distros.
 You can set up this on OpenWRT with either Apache on Nginx but for simplicity, default uHTTPd will be used.
 
 
-## ⚙️ Installation
+# ⚙️ Installation
 
 > [!CAUTION]
 > This tool should never be exposed to the public internet.
@@ -114,15 +114,15 @@ $ sudo mkdir /etc/dnsmasq.webconfig
 
    b. Change ownership of config directory
 
-> [!IMPORTANT]
-> Replace `user:group` with the actual user and group found in the previous step
+   > [!IMPORTANT]
+   > Replace `user:group` with the actual user and group found in the previous step
 
    ```
    $ sudo chown user:group /etc/dnsmasq.webconfig
    $ sudo chmod 755 /etc/dnsmasq.webconfig
    ```
 
-   c. Allow user to restart dnsmasq (optional)
+   c. Allow user to restart dnsmasq (optional, not for OpenWRT)
 
    I think this isn't proper way to do it because it opens a security hole. (Please open issue if you know better way)
 
@@ -140,10 +140,14 @@ $ sudo mkdir /etc/dnsmasq.webconfig
    ```bash
    $ sudo systemctl restart dnsmasq
    ```
-
-   Or on OpenWRT
+   
+   If you're sure and want automatic restarts
    ```bash
-   # /etc/init.d/dnsmasq restart
+   $ sudo visudo
+   ```
+   Add this, replacing `user` with the same thing as in 4b
+   ```
+   user ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart dnsmasq
    ```
 
 5. Configure Dnsmasq
@@ -291,14 +295,14 @@ Add this to the end
 
 If everything was done correctly you should see panel when visiting http://dnsmasq.example.com (or your domain). On OpenWRT go to http://dnsmasq.example.com:8080
 
-## Opening Issues
+# 🚩 Opening Issues
 If you find a bug or want to request some feature, feel free to open an issue
 1. Check if it wasn't mentioned
 2. If not, click on the "New issue" button
 3. Describe issue or feature. Please include OS and dependencies versions and screenshots.
 
-I will try to reach out as fast as I can
+I will try to reach out as soon as I can
 
-## 🪪 License
+# 🪪 License
 
 This project is licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](https://www.gnu.org/licenses/agpl-3.0.html).
